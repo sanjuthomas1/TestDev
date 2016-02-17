@@ -1,0 +1,28 @@
+<apex:page sidebar="false" Controller="ShoppControllerClone" showHeader="true">
+<apex:form >
+<apex:pageBlock >
+   
+     <apex:pageBlockTable value="{!productItemList}" var="P">
+ <apex:column headervalue="Object_A Name">
+                        <apex:commandLink action="{!child}" >
+                            <apex:param value="{!P.id}" assignTo="{!Aid}" name="entryId" /> {!P.name}
+                        </apex:commandLink>
+        </apex:column>
+        </apex:pageBlockTable> 
+         
+         <apex:pageBlockTable title="children" value="{!productItemWrapperList}" var="W" rendered="{!status}"> 
+        <apex:column headerValue="child">
+            <apex:pageblockTable value="{!W.brndList}" var="I" >
+                <apex:column value="{!I.Name}"/>
+                <apex:column headerValue="grandchild" >
+            <apex:pageBlockTable value="{!I.Models__r}" var="E">
+                        <apex:column value="{!E.Name}"/>
+                </apex:pageBlockTable>
+                </apex:column>        
+                    </apex:pageBlockTable>
+                   </apex:column>
+
+    </apex:pageBlockTable>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

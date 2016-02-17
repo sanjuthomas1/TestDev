@@ -1,0 +1,52 @@
+<apex:page controller="ObjectController" sidebar="false" showHeader="false" >
+    <apex:form >
+       <apex:pageBlock >         
+        <apex:pageBlockSection title="Master Records">        
+        <apex:pageBlockTable value="{!MasterA}" var="A">
+        <apex:column headervalue="Object_A Name">
+                        <apex:commandLink action="{!childA}" >
+                            <apex:param value="{!A.id}" assignTo="{!Aid}" name="entryId" /> {!A.Name}
+                        </apex:commandLink>
+        </apex:column>
+        </apex:pageBlockTable>
+              
+        <apex:pageBlockTable value="{!MasterB}" var="B">
+            <apex:column headervalue="Object_B Name">
+                        <apex:commandLink action="{!childB}">
+                            <apex:param value="{!B.id}" assignTo="{!Bid}" name="entryId" /> {!B.Name}
+                        </apex:commandLink>
+            </apex:column>
+        </apex:pageBlockTable>     
+        </apex:pageblocksection>
+        
+        <apex:pageBlockSection title="Object A Details" collapsible="false" rendered="{!statusA}" >
+             <apex:outputField value="{!Adetails.name}" label="Name:  "  />   
+        </apex:pageBlockSection>
+        
+         <apex:pageBlockSection title="Related Child Records" rendered="{!statusA}">
+         <apex:pageBlockTable value="{!a1details}" var="a1" rendered="{!statusA}">
+         <apex:column value="{!a1.name}"/>
+         </apex:pageBlockTable>
+          
+         <apex:pageBlockTable value="{!a2details}" var="a2" rendered="{!statusA}">
+         <apex:column value="{!a2.name}"/>
+         </apex:pageBlockTable>
+         </apex:pageBlockSection>
+          
+         <apex:pageBlockSection title="Object B Details" collapsible="false" rendered="{!statusB}" >
+         <apex:outputField value="{!Bdetails.name}" label="Name:  "  />   
+         </apex:pageBlockSection>
+        
+         <apex:pageBlockSection title="Related Child Records" rendered="{!statusB}">
+         <apex:pageBlockTable value="{!b3details}" var="b3" rendered="{!statusB}">
+         <apex:column value="{!b3.name}"/>
+         </apex:pageBlockTable>
+          
+         <apex:pageBlockTable value="{!b4details}" var="b4" rendered="{!statusB}">
+         <apex:column value="{!b4.name}"/>
+         </apex:pageBlockTable>
+         </apex:pageblocksection>
+        
+       </apex:pageBlock>   
+    </apex:form>
+</apex:page>

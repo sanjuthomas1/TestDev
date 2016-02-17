@@ -1,0 +1,29 @@
+<apex:page controller="ObjectABController" showHeader="false" sidebar="false">
+<apex:form >
+    <apex:pageBlock >
+        <apex:pageBlockSection title="Master Records">        
+        <apex:pageBlockTable value="{!MasterA}" var="A">
+        <apex:column headervalue="Object_A Name">
+                        <apex:commandLink rerender="detail">
+                            <apex:param value="{!A.id}" assignTo="{!Aid}" name="entryId" /> {!A.Name}
+                        </apex:commandLink>
+                            </apex:column>
+        </apex:pageBlockTable>
+        <apex:pageBlockTable value="{!MasterB}" var="B">
+        <apex:column headervalue="Object_B Name">
+                        <apex:commandLink rerender="detail">
+                            <apex:param value="{!B.id}" assignTo="{!Bid}" name="entryId" /> {!B.Name}
+                        </apex:commandLink>
+            </apex:column>
+        </apex:pageBlockTable>
+        </apex:pageblocksection>
+ 
+<apex:pageblockSection title="Details and related list" >
+ <apex:outputPanel id="detail" >
+        <apex:detail subject="{!$CurrentPage.parameters.entryId}" title="false" />
+     </apex:outputPanel>
+  </apex:pageblockSection>    
+</apex:pageBlock>   
+    </apex:form>
+
+</apex:page>

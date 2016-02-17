@@ -1,0 +1,15 @@
+<apex:page controller="ApexController" >
+<apex:pageBlock >
+        <apex:pageBlockSection title="Master Record Details" >
+        <apex:pageBlockTable value="{!MasterRecord}" var="Master">
+        <apex:column value="{!Master.name}" />
+              </apex:pageBlockTable>
+           
+        </apex:pageBlockSection>
+    </apex:pageBlock>
+    <apex:pageBlock >
+        <apex:pageBlockTable value="{!ChildRecords}" var="Child">
+            <apex:column value="{!Child.name}" />
+        </apex:pageBlockTable>
+    </apex:pageBlock>
+</apex:page>

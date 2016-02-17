@@ -1,0 +1,21 @@
+<apex:page Controller="sen">
+<apex:form >
+<apex:pageBlock >
+<apex:pageBlockSection > 
+
+<apex:inputField value="{!useer.FirstName}" />
+<apex:inputField value="{!useer.LastName}" />
+<apex:inputField value="{!useer.Alias}" />
+<apex:inputField value="{!useer.Email}" />
+<apex:inputField value="{!useer.UserName}" />
+<!-- <apex:inputField value="{!useer.Name}" /> -->
+<apex:commandButton action="{!save}" value="save"/>
+</apex:pageBlockSection>
+</apex:pageBlock>
+<apex:pageBlock >
+<apex:pageBlockTable value="{!us}" var="u">
+<apex:column value="{!u.Name}"/>
+</apex:pageBlockTable>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

@@ -1,0 +1,19 @@
+<apex:page sidebar="false" Controller="ShoppController" showHeader="true">
+<apex:form >
+<apex:pageBlock >
+    <apex:pageBlockTable value="{!productItemWrapperList}" var="W">
+        <apex:column value="{!W.productItem.Name}"/>
+           <apex:column >
+             <apex:pageblockTable value="{!W.brndList}" var="I">
+                <apex:column value="{!I.Name}"/>
+                <apex:column >
+                    <apex:pageBlockTable value="{!I.Models__r}" var="E">
+                       <apex:column value="{!E.Name}"/>          
+                    </apex:pageBlockTable>
+                </apex:column>
+             </apex:pageblockTable>
+           </apex:column>
+    </apex:pageBlockTable>
+</apex:pageBlock>
+</apex:form>
+</apex:page>

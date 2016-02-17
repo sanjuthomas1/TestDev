@@ -1,0 +1,15 @@
+<apex:page Controller="NameContact" sidebar="false" showHeader="false">
+
+  <apex:form >
+  <center><apex:image id="image1" value="{!$Resource.Sanlogo}" height="140" width="100" /> </center>
+     <apex:pageBlock >
+     <center>
+     <font size="5">
+  hii <h1>Friend</h1> Let me know your name    <apex:inputField value="{!contact.LastName}"/> </font>
+  <apex:commandButton action="{!save}" value="OK" image="{!$Resource.ok}" alt=""/>
+  </center>
+
+  </apex:pageBlock>
+  
+  </apex:form>
+</apex:page>

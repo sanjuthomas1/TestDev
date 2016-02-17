@@ -1,0 +1,9 @@
+<apex:page controller="show1">
+<apex:pageBlock title="CITIES" >
+<apex:repeat value="{!allCitiesListOfList}" var="ct">
+<apex:DataTable title="city name" value="{!ct}" var="tem">
+<apex:column value="{!tem.name}"/>    
+</apex:dataTable>
+ </apex:repeat>
+</apex:pageBlock>
+</apex:page>

@@ -1,0 +1,6 @@
+<apex:page controller="LikeController" sidebar="false" >
+<apex:form >
+Name: <apex:inputText value="{!fname}" />
+  <apex:commandButton action="{!createLike}" value="Like"/>
+  </apex:form>
+</apex:page>
