@@ -1,0 +1,125 @@
+vf page--------------
+
+<apex:page controller="ObjectController" sidebar="false" showHeader="false" >
+    <apex:form >
+       <apex:pageBlock >         
+        <apex:pageBlockSection title="Master Records">        
+        <apex:pageBlockTable value="{!MasterA}" var="A">
+        <apex:column headervalue="Object_A Name">
+                        <apex:commandLink action="{!childA}" >
+                            <apex:param value="{!A.id}" assignTo="{!Aid}" name="entryId" /> {!A.Name}
+                        </apex:commandLink>
+        </apex:column>
+        </apex:pageBlockTable>
+              
+        <apex:pageBlockTable value="{!MasterB}" var="B">
+            <apex:column headervalue="Object_B Name">
+                        <apex:commandLink action="{!childB}">
+                            <apex:param value="{!B.id}" assignTo="{!Bid}" name="entryId" /> {!B.Name}
+                        </apex:commandLink>
+            </apex:column>
+        </apex:pageBlockTable>     
+        </apex:pageblocksection>
+        
+        <apex:pageBlockSection title="Object A Details" collapsible="false" rendered="{!statusA}" >
+             <apex:outputField value="{!Adetails.name}" label="Name:  "  />   
+        </apex:pageBlockSection>
+        
+         <apex:pageBlockSection title="Related Child Records" rendered="{!statusA}">
+         <apex:pageBlockTable value="{!a1details}" var="a1" rendered="{!statusA}">
+         <apex:column value="{!a1.name}"/>
+         </apex:pageBlockTable>
+          
+         <apex:pageBlockTable value="{!a2details}" var="a2" rendered="{!statusA}">
+         <apex:column value="{!a2.name}"/>
+         </apex:pageBlockTable>
+         </apex:pageBlockSection>
+          
+         <apex:pageBlockSection title="Object B Details" collapsible="false" rendered="{!statusB}" >
+         <apex:outputField value="{!Bdetails.name}" label="Name:  "  />   
+         </apex:pageBlockSection>
+        
+         <apex:pageBlockSection title="Related Child Records" rendered="{!statusB}">
+         <apex:pageBlockTable value="{!b3details}" var="b3" rendered="{!statusB}">
+         <apex:column value="{!b3.name}"/>
+         </apex:pageBlockTable>
+          
+         <apex:pageBlockTable value="{!b4details}" var="b4" rendered="{!statusB}">
+         <apex:column value="{!b4.name}"/>
+         </apex:pageBlockTable>
+         </apex:pageblocksection>
+        
+       </apex:pageBlock>   
+    </apex:form>
+</apex:page>
+
+
+
+controller----------------
+
+public with sharing class ObjectController {
+
+    
+    /*attributes*/
+    public Boolean StatusA {get; set;}
+    public Boolean StatusB {get; set;}
+    public List<Object_A__c> MasterA {get; set;}
+    public List<Object_B__c> MasterB {get; set;}
+     public Object_A__c  Adetails {get;set;}
+     public Object_B__c  Bdetails {get;set;}
+     public List<object1__c> a1details{get; set;}
+     public List<object2__c> a2details{get; set;}
+     public List<object3__c> b3details{get; set;}
+     public List<object4__c> b4details{get; set;}
+    public string Aid{get; set;}
+    public string Bid{get; set;}
+   
+    /*Constructor. This would build everything for our VF Page.*/
+    public ObjectController()
+    {  
+        statusA=false;
+        statusB=false;
+       MasterA= [select Id,Name from Object_A__c where Name!=null];
+       MasterB=[select Name from Object_B__c where Name!=null];
+       
+    }
+    
+    /*pagereference action for master object A to fetch child object records*/
+     public PageReference childA() {
+      statusA=true;
+      statusB=false;
+
+     Adetails=[SELECT id,name FROM Object_A__c WHERE id =:Aid];
+      
+     a1details=[SELECT id,Name FROM Object1__c WHERE Object_A__c =:Aid];    
+     a2details=[SELECT id,Name FROM Object2__c WHERE Object_A__c =:Aid];      
+ 
+      return null;
+    }
+
+    /*pagereference action for master object B to fetch child objects records*/
+    public PageReference childB() {
+     statusA=false;
+     statusB=true;
+
+     Bdetails=[SELECT id,name FROM Object_B__c WHERE id =:Bid];
+                  
+        
+     //b3details=[SELECT id,Name FROM Object3__c WHERE Object_B__c =:Bid];  
+     b3details=new List<Object3__c>();
+     for(Object3__c ob3:[SELECT id,Name FROM Object3__c WHERE Object_B__c =:Bid]){
+        b3details.add(ob3);
+     }  
+     //b4details=[SELECT id,Name FROM Object4__c WHERE Object_B__c =:Bid];      
+     b4details=new List<Object4__c>();
+     for(Object4__c ob4:[SELECT id,Name FROM Object4__c WHERE Object_B__c =:Bid]){
+        b4details.add(ob4);
+     }  
+
+        return null;
+    }
+
+
+   
+   
+}
