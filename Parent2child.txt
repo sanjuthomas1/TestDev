@@ -10,8 +10,7 @@ vf page--------------
                             <apex:param value="{!A.id}" assignTo="{!Aid}" name="entryId" /> {!A.Name}
                         </apex:commandLink>
         </apex:column>
-        </apex:pageBlockTable>
-              
+        </apex:pageBlockTable>     
         <apex:pageBlockTable value="{!MasterB}" var="B">
             <apex:column headervalue="Object_B Name">
                         <apex:commandLink action="{!childB}">

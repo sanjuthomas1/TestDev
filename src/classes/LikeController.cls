@@ -6,7 +6,7 @@ public with sharing class LikeController {
 public PageReference createLike() {
     
     contact c=new contact(Lastname=fname);
-    insert c;
+ insert c;
         return null;
     }
 
